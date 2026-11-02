@@ -1,6 +1,6 @@
 # OpsPilot
 
-Fictional customer-support operations platform. This repository currently implements **Lesson 1.6 — Assignment 1**: an extended, rule-based ticket classifier exposed through a FastAPI service.
+Fictional customer-support operations platform. This repository currently implements an extended, rule-based ticket classifier exposed through a FastAPI service.
 
 ## Architecture
 

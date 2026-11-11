@@ -1,3 +1,5 @@
+"""Shared enums and legacy ML API models (customer_id + nested classification)."""
+
 from typing import Literal
 
 from pydantic import BaseModel, Field

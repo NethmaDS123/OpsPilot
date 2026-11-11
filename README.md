@@ -1,102 +1,101 @@
 # OpsPilot
 
-Fictional customer-support operations platform. This repository currently implements an extended, rule-based ticket classifier exposed through a FastAPI service.
+OpsPilot is a **customer-support triage API** that classifies inbound tickets by category and priority, estimates confidence, and flags cases for human review. It demonstrates three production-relevant approaches on the same problem: **keyword rules**, **traditional ML** (TF-IDF + logistic regression), and **LLM classification** with structured outputs and server-side safety controls.
+
+## Features
+
+- **LLM classification** — `POST /tickets/classify` via OpenAI Responses API, Pydantic-validated JSON, post-model safety overrides.
+- **ML endpoint** — `POST /tickets/classify/ml` using a trained scikit-learn pipeline on 300+ labeled examples.
+- **Rule baseline** — Deterministic keyword classifier for benchmarks and escalation heuristics.
+- **Evaluation tooling** — Scripts to compare accuracy, F1, latency, and human-review rates on a shared hold-out split.
+- **Test suite** — pytest coverage for rules, ML, LLM routes (with injectable fake LLM), and safety cases.
 
 ## Architecture
 
-The application is split into three layers:
-
 | Module | Responsibility |
 |--------|----------------|
-| `app/models.py` | Request/response schemas and allowed enum values |
-| `app/classifier.py` | Pure classification logic (no HTTP or I/O) |
-| `app/main.py` | HTTP routes that validate input and call the classifier |
+| `app/api/tickets.py` | HTTP routes and dependency injection |
+| `app/services/llm_client.py` | Provider abstraction + OpenAI client |
+| `app/services/classification.py` | Orchestration and safety overrides |
+| `app/services/safety.py` | Input normalization, injection/sensitivity heuristics |
+| `app/prompts/ticket_classifier.py` | Versioned system prompt |
+| `app/schemas/classification.py` | LLM request/response models |
+| `app/rule_classifier.py` | Rule-based classifier |
+| `app/ml_classifier.py` | ML category + rule-based priority/escalation |
+| `app/train_classifier.py` | Train and persist sklearn pipeline |
+| `app/compare_three_classifiers.py` | Rule vs ML vs LLM benchmark |
 
 ```
 POST /tickets/classify
         │
         ▼
-   TicketRequest  (Pydantic validation)
+   Pydantic request validation
         │
         ▼
-   classify_ticket()
+   LLM (structured output) + safety overrides
         │
         ▼
-   TicketResponse (ticket_id + TicketClassification)
+   TicketClassifyResponse
 ```
 
-Keeping classification as a plain function makes it easy to unit test, swap in an LLM later, and run offline evaluations without starting a server.
+Further detail: [`docs/architecture.md`](docs/architecture.md).
 
-## Data models
+## API
 
-Models use **Pydantic `BaseModel`** with **`Literal` types** for `category` and `priority`. That encodes the allowed values in the type system so invalid states (for example `category="refundmaybe"`) are rejected at validation time rather than deep in business logic.
+### Classify (LLM)
 
-- **`TicketRequest`**: inbound ticket (`customer_id`, `message`, optional `order_id`).
-- **`TicketClassification`**: structured outcome (`category`, `priority`, `summary`, `requires_human`).
-- **`TicketResponse`**: API envelope with a generated `ticket_id` and nested classification.
+```http
+POST /tickets/classify
+```
 
-Field constraints on `message` (1–5000 characters) and `summary` (1–300 characters) enforce basic input bounds at the boundary.
+```json
+{
+  "ticket_id": "TICKET-001",
+  "message": "My order arrived damaged and I need a replacement."
+}
+```
 
-## Validation
+Response includes `category`, `priority`, `confidence`, `requires_human_review`, and `justification`.
 
-Validation happens in two places:
+Requires `OPENAI_API_KEY` in `.env` (see `env.example`).
 
-1. **Inbound API body** — FastAPI parses JSON into `TicketRequest`. Missing fields, empty messages, or overlong text produce **HTTP 422** with Pydantic error details.
-2. **Outbound response** — `response_model=TicketResponse` ensures the handler returns data that matches the declared schema.
+### Classify (ML)
 
-The classifier assumes it receives an already-valid `TicketRequest`; it does not re-validate string lengths.
+```http
+POST /tickets/classify/ml
+```
 
-## Error handling
+Uses legacy body shape: `customer_id`, `message`, optional `order_id`.
 
-- **Client errors (422)**: Invalid or malformed ticket payloads are rejected by Pydantic before `classify_ticket` runs.
-- **Server errors**: Unhandled exceptions would surface as 500 responses; the classifier path is deterministic and has no external dependencies, so failures here would indicate a programming bug rather than a transient service outage.
-
-There is no custom exception hierarchy yet; that can be added when we integrate databases and external tools.
-
-## Classifier behaviour
-
-The classifier lowercases the message and applies **keyword and phrase rules** grouped by category. It then:
-
-1. Collects all categories that match.
-2. Resolves a single category using severity precedence (security and billing issues win over generic matches).
-3. Assigns **priority** (`low`, `normal`, `high`, `urgent`) from explicit rules aligned with the assignment examples.
-4. Sets **`requires_human=True`** when:
-   - The account is reported compromised.
-   - A serious financial issue is reported (duplicate charge, fraud, stolen card, etc.).
-   - The customer asks for an action the automated system must not take (e.g. chargeback, legal escalation).
-   - The outcome is **not confident** — multiple unrelated categories match, the message is too short/vague, or `other` is chosen without a clear general-inquiry signal.
-
-**Confidence fallback (pre-LLM):** There is no model probability score. Confidence is approximated with heuristics: multi-category conflicts (except billing/refund overlap), very short messages, and weak lone substring matches (e.g. negated “refund”) trigger escalation via `requires_human=True`.
-
-## Testing
-
-Tests use **pytest**.
-
-- **`tests/test_classifier.py`** — Unit tests for classification: normal cases, edge cases (negated refund, ambiguity), escalation, and direct Pydantic validation of invalid `TicketRequest` instances.
-- **`tests/test_api.py`** — Integration-style tests with FastAPI’s `TestClient`: health check, successful classify, and 422 on empty message.
-
-Run:
+## Quick start
 
 ```bash
+python3 -m venv .venv
 source .venv/bin/activate
+pip install -r requirements.txt
+cp env.example .env   # set OPENAI_API_KEY for LLM routes
+
+python -m app.train_classifier   # produces app/artifacts/category_classifier.joblib
 pytest
-```
-
-## Current limitations
-
-- **Keyword matching** misses intent, sarcasm, and negation in general; only a few edge cases (e.g. refund + tracking) are handled explicitly.
-- **Categories in the type system** include values the rules rarely assign alone (e.g. billing vs refund overlap is simplified).
-- **No persistence** — `ticket_id` is generated per request and not stored.
-- **No LLM, tools, or human workflow** — escalation is a boolean flag only; there is no queue or approval UI yet.
-- **English-only** phrases; no locale or stemming.
-
-These limits are intentional for Assignment 1: establish a testable baseline before replacing or augmenting rules with an AI classifier in later lessons.
-
-## Run the API
-
-```bash
-source .venv/bin/activate
 uvicorn app.main:app --reload
 ```
 
-Interactive docs: http://127.0.0.1:8000/docs
+OpenAPI UI: http://127.0.0.1:8000/docs
+
+## Evaluation
+
+```bash
+python -m app.compare_classifiers
+python -m app.compare_three_classifiers
+python -m app.compare_three_classifiers --live-llm   # optional; uses OpenAI
+```
+
+Model metrics and methodology: [`docs/evaluation.md`](docs/evaluation.md).
+
+## Tech stack
+
+Python 3.13, FastAPI, Pydantic v2, scikit-learn, OpenAI Python SDK, pytest.
+
+## License
+
+Portfolio / demonstration project. Adapt and reuse with attribution.

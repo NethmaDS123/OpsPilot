@@ -1,17 +1,15 @@
-from uuid import uuid4
+"""FastAPI entrypoint: mounts ticket routes and health check."""
 
 from fastapi import FastAPI
 
-from app.models import (
-    TicketRequest,
-    TicketResponse,
-)
-from app.classifier import classify_ticket
+from app.api.tickets import router as tickets_router
 
 app = FastAPI(
     title="OpsPilot API",
-    version="0.1.0",
+    version="0.2.0",
 )
+
+app.include_router(tickets_router)
 
 
 @app.get("/health")
@@ -19,17 +17,3 @@ def health_check():
     return {
         "status": "healthy",
     }
-
-
-@app.post(
-    "/tickets/classify",
-    response_model=TicketResponse,
-)
-def classify(
-    ticket: TicketRequest,
-) -> TicketResponse:
-    classification = classify_ticket(ticket)
-    return TicketResponse(
-        ticket_id=str(uuid4()),
-        classification=classification,
-    )

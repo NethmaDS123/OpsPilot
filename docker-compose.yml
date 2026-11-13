@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: opspilot
+      POSTGRES_PASSWORD: opspilot
+      POSTGRES_DB: opspilot
+    ports:
+      - "5432:5432"
+    volumes:
+      - opspilot_pgdata:/var/lib/postgresql/data
+      - ./migrations/001_init_pgvector.sql:/docker-entrypoint-initdb.d/001_init_pgvector.sql
+
+volumes:
+  opspilot_pgdata:

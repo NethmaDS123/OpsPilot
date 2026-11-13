@@ -1,0 +1,632 @@
+{
+  "summary": {
+    "cases": 31,
+    "precision_at_3_mean": 0.2903,
+    "recall_at_3_mean": 0.871,
+    "mrr_mean": 0.7903,
+    "answer_correctness_rate": 0.8387,
+    "unsupported_claims": 0,
+    "mean_retrieval_latency_ms": 16.64,
+    "mean_llm_latency_ms": 0.02,
+    "mean_estimated_cost_usd": 8.3e-05
+  },
+  "rows": [
+    {
+      "question": "How long do I have to request a full refund on standard products?",
+      "company_id": "acme-corp",
+      "expected_document_id": "acme-refunds-v2",
+      "retrieved_top3": [
+        "acme-refunds-v2",
+        "acme-delivery-delays-v1",
+        "acme-cancellations-v1"
+      ],
+      "precision_at_3": 0.3333333333333333,
+      "recall_at_3": 1.0,
+      "mrr": 1.0,
+      "hit_top3": true,
+      "answer_ok": true,
+      "unsupported_claim": false,
+      "abstain": false,
+      "retrieval_latency_ms": 15.35,
+      "llm_latency_ms": 0.03,
+      "estimated_cost_usd": 8.7e-05
+    },
+    {
+      "question": "Are final sale items refundable?",
+      "company_id": "acme-corp",
+      "expected_document_id": "acme-refunds-v2",
+      "retrieved_top3": [
+        "acme-refunds-v2",
+        "acme-returns-v1",
+        "acme-cancellations-v1"
+      ],
+      "precision_at_3": 0.3333333333333333,
+      "recall_at_3": 1.0,
+      "mrr": 1.0,
+      "hit_top3": true,
+      "answer_ok": true,
+      "unsupported_claim": false,
+      "abstain": false,
+      "retrieval_latency_ms": 15.31,
+      "llm_latency_ms": 0.02,
+      "estimated_cost_usd": 8.7e-05
+    },
+    {
+      "question": "When do refunds above $500 need supervisor approval?",
+      "company_id": "acme-corp",
+      "expected_document_id": "acme-refunds-v2",
+      "retrieved_top3": [
+        "acme-refunds-v2",
+        "acme-returns-v1",
+        "acme-payment-failures-v1"
+      ],
+      "precision_at_3": 0.3333333333333333,
+      "recall_at_3": 1.0,
+      "mrr": 1.0,
+      "hit_top3": true,
+      "answer_ok": true,
+      "unsupported_claim": false,
+      "abstain": false,
+      "retrieval_latency_ms": 15.9,
+      "llm_latency_ms": 0.03,
+      "estimated_cost_usd": 8.7e-05
+    },
+    {
+      "question": "What is the return window for physical goods?",
+      "company_id": "acme-corp",
+      "expected_document_id": "acme-returns-v1",
+      "retrieved_top3": [
+        "acme-returns-v1",
+        "acme-refunds-v2",
+        "acme-delivery-delays-v1"
+      ],
+      "precision_at_3": 0.3333333333333333,
+      "recall_at_3": 1.0,
+      "mrr": 1.0,
+      "hit_top3": true,
+      "answer_ok": true,
+      "unsupported_claim": false,
+      "abstain": false,
+      "retrieval_latency_ms": 15.01,
+      "llm_latency_ms": 0.02,
+      "estimated_cost_usd": 8.7e-05
+    },
+    {
+      "question": "Is there a restocking fee for opened electronics?",
+      "company_id": "acme-corp",
+      "expected_document_id": "acme-returns-v1",
+      "retrieved_top3": [
+        "acme-returns-v1",
+        "acme-complaints-v1",
+        "acme-cancellations-v1"
+      ],
+      "precision_at_3": 0.3333333333333333,
+      "recall_at_3": 1.0,
+      "mrr": 1.0,
+      "hit_top3": true,
+      "answer_ok": true,
+      "unsupported_claim": false,
+      "abstain": false,
+      "retrieval_latency_ms": 14.79,
+      "llm_latency_ms": 0.02,
+      "estimated_cost_usd": 8.7e-05
+    },
+    {
+      "question": "Who pays return shipping for change-of-mind returns?",
+      "company_id": "acme-corp",
+      "expected_document_id": "acme-returns-v1",
+      "retrieved_top3": [
+        "acme-returns-v1",
+        "acme-refunds-v2",
+        "acme-delivery-delays-v1"
+      ],
+      "precision_at_3": 0.3333333333333333,
+      "recall_at_3": 1.0,
+      "mrr": 1.0,
+      "hit_top3": true,
+      "answer_ok": true,
+      "unsupported_claim": false,
+      "abstain": false,
+      "retrieval_latency_ms": 14.82,
+      "llm_latency_ms": 0.02,
+      "estimated_cost_usd": 8.7e-05
+    },
+    {
+      "question": "How soon must I report visible shipping damage?",
+      "company_id": "acme-corp",
+      "expected_document_id": "acme-damaged-goods-v1",
+      "retrieved_top3": [
+        "acme-damaged-goods-v1",
+        "acme-delivery-delays-v1",
+        "acme-warranty-v1"
+      ],
+      "precision_at_3": 0.3333333333333333,
+      "recall_at_3": 1.0,
+      "mrr": 1.0,
+      "hit_top3": true,
+      "answer_ok": true,
+      "unsupported_claim": false,
+      "abstain": false,
+      "retrieval_latency_ms": 15.12,
+      "llm_latency_ms": 0.02,
+      "estimated_cost_usd": 8.7e-05
+    },
+    {
+      "question": "What photos are required for a damage claim?",
+      "company_id": "acme-corp",
+      "expected_document_id": "acme-damaged-goods-v1",
+      "retrieved_top3": [
+        "acme-damaged-goods-v1",
+        "acme-complaints-v1",
+        "acme-missing-orders-v1"
+      ],
+      "precision_at_3": 0.3333333333333333,
+      "recall_at_3": 1.0,
+      "mrr": 1.0,
+      "hit_top3": true,
+      "answer_ok": true,
+      "unsupported_claim": false,
+      "abstain": false,
+      "retrieval_latency_ms": 14.93,
+      "llm_latency_ms": 0.02,
+      "estimated_cost_usd": 8.7e-05
+    },
+    {
+      "question": "Can I get a repair instead of replacement for expensive items?",
+      "company_id": "acme-corp",
+      "expected_document_id": "acme-damaged-goods-v1",
+      "retrieved_top3": [
+        "acme-damaged-goods-v1",
+        "acme-returns-v1",
+        "acme-warranty-v1"
+      ],
+      "precision_at_3": 0.3333333333333333,
+      "recall_at_3": 1.0,
+      "mrr": 1.0,
+      "hit_top3": true,
+      "answer_ok": true,
+      "unsupported_claim": false,
+      "abstain": false,
+      "retrieval_latency_ms": 48.38,
+      "llm_latency_ms": 0.03,
+      "estimated_cost_usd": 8.7e-05
+    },
+    {
+      "question": "When can I request a courtesy credit for late delivery?",
+      "company_id": "acme-corp",
+      "expected_document_id": "acme-delivery-delays-v1",
+      "retrieved_top3": [
+        "acme-missing-orders-v1",
+        "acme-delivery-delays-v1",
+        "acme-damaged-goods-v1"
+      ],
+      "precision_at_3": 0.3333333333333333,
+      "recall_at_3": 1.0,
+      "mrr": 0.5,
+      "hit_top3": true,
+      "answer_ok": true,
+      "unsupported_claim": false,
+      "abstain": false,
+      "retrieval_latency_ms": 18.62,
+      "llm_latency_ms": 0.03,
+      "estimated_cost_usd": 8.7e-05
+    },
+    {
+      "question": "How long can tracking be stagnant before opening a delay ticket?",
+      "company_id": "acme-corp",
+      "expected_document_id": "acme-delivery-delays-v1",
+      "retrieved_top3": [
+        "acme-delivery-delays-v1",
+        "acme-missing-orders-v1",
+        "acme-cancellations-v1"
+      ],
+      "precision_at_3": 0.3333333333333333,
+      "recall_at_3": 1.0,
+      "mrr": 1.0,
+      "hit_top3": true,
+      "answer_ok": false,
+      "unsupported_claim": false,
+      "abstain": true,
+      "retrieval_latency_ms": 16.98,
+      "llm_latency_ms": 0.0,
+      "estimated_cost_usd": null
+    },
+    {
+      "question": "What happens after 10 business days past estimated delivery?",
+      "company_id": "acme-corp",
+      "expected_document_id": "acme-delivery-delays-v1",
+      "retrieved_top3": [
+        "acme-delivery-delays-v1",
+        "acme-account-access-v2",
+        "acme-complaints-v1"
+      ],
+      "precision_at_3": 0.3333333333333333,
+      "recall_at_3": 1.0,
+      "mrr": 1.0,
+      "hit_top3": true,
+      "answer_ok": true,
+      "unsupported_claim": false,
+      "abstain": false,
+      "retrieval_latency_ms": 22.22,
+      "llm_latency_ms": 0.03,
+      "estimated_cost_usd": 8.7e-05
+    },
+    {
+      "question": "What counts as a missing package?",
+      "company_id": "acme-corp",
+      "expected_document_id": "acme-missing-orders-v1",
+      "retrieved_top3": [
+        "acme-missing-orders-v1",
+        "acme-returns-v1",
+        "acme-account-access-v2"
+      ],
+      "precision_at_3": 0.3333333333333333,
+      "recall_at_3": 1.0,
+      "mrr": 1.0,
+      "hit_top3": true,
+      "answer_ok": true,
+      "unsupported_claim": false,
+      "abstain": false,
+      "retrieval_latency_ms": 22.97,
+      "llm_latency_ms": 0.04,
+      "estimated_cost_usd": 8.7e-05
+    },
+    {
+      "question": "Do I need a police report for porch theft over $150?",
+      "company_id": "acme-corp",
+      "expected_document_id": "acme-missing-orders-v1",
+      "retrieved_top3": [
+        "acme-missing-orders-v1",
+        "acme-damaged-goods-v1",
+        "acme-payment-failures-v1"
+      ],
+      "precision_at_3": 0.3333333333333333,
+      "recall_at_3": 1.0,
+      "mrr": 1.0,
+      "hit_top3": true,
+      "answer_ok": true,
+      "unsupported_claim": false,
+      "abstain": false,
+      "retrieval_latency_ms": 17.94,
+      "llm_latency_ms": 0.03,
+      "estimated_cost_usd": 8.7e-05
+    },
+    {
+      "question": "How many courtesy replacements are allowed per year?",
+      "company_id": "acme-corp",
+      "expected_document_id": "acme-missing-orders-v1",
+      "retrieved_top3": [
+        "acme-damaged-goods-v1",
+        "acme-delivery-delays-v1",
+        "acme-missing-orders-v1"
+      ],
+      "precision_at_3": 0.3333333333333333,
+      "recall_at_3": 1.0,
+      "mrr": 0.3333333333333333,
+      "hit_top3": true,
+      "answer_ok": true,
+      "unsupported_claim": false,
+      "abstain": false,
+      "retrieval_latency_ms": 15.86,
+      "llm_latency_ms": 0.02,
+      "estimated_cost_usd": 8.7e-05
+    },
+    {
+      "question": "How long are password reset links valid?",
+      "company_id": "acme-corp",
+      "expected_document_id": "acme-account-access-v2",
+      "retrieved_top3": [
+        "acme-account-access-v2",
+        "acme-returns-v1",
+        "acme-complaints-v1"
+      ],
+      "precision_at_3": 0.3333333333333333,
+      "recall_at_3": 1.0,
+      "mrr": 1.0,
+      "hit_top3": true,
+      "answer_ok": true,
+      "unsupported_claim": false,
+      "abstain": false,
+      "retrieval_latency_ms": 16.95,
+      "llm_latency_ms": 0.02,
+      "estimated_cost_usd": 8.7e-05
+    },
+    {
+      "question": "What ID is needed if I lost email access?",
+      "company_id": "acme-corp",
+      "expected_document_id": "acme-account-access-v2",
+      "retrieved_top3": [
+        "acme-account-access-v2",
+        "acme-payment-failures-v1",
+        "acme-complaints-v1"
+      ],
+      "precision_at_3": 0.3333333333333333,
+      "recall_at_3": 1.0,
+      "mrr": 1.0,
+      "hit_top3": true,
+      "answer_ok": true,
+      "unsupported_claim": false,
+      "abstain": false,
+      "retrieval_latency_ms": 15.35,
+      "llm_latency_ms": 0.03,
+      "estimated_cost_usd": 8.7e-05
+    },
+    {
+      "question": "Can support disable MFA without proof?",
+      "company_id": "acme-corp",
+      "expected_document_id": "acme-account-access-v2",
+      "retrieved_top3": [
+        "acme-account-access-v2",
+        "acme-returns-v1",
+        "acme-cancellations-v1"
+      ],
+      "precision_at_3": 0.3333333333333333,
+      "recall_at_3": 1.0,
+      "mrr": 1.0,
+      "hit_top3": true,
+      "answer_ok": true,
+      "unsupported_claim": false,
+      "abstain": false,
+      "retrieval_latency_ms": 15.36,
+      "llm_latency_ms": 0.03,
+      "estimated_cost_usd": 8.7e-05
+    },
+    {
+      "question": "How long are declined-card orders held?",
+      "company_id": "acme-corp",
+      "expected_document_id": "acme-payment-failures-v1",
+      "retrieved_top3": [
+        "acme-payment-failures-v1",
+        "acme-returns-v1",
+        "acme-complaints-v1"
+      ],
+      "precision_at_3": 0.3333333333333333,
+      "recall_at_3": 1.0,
+      "mrr": 1.0,
+      "hit_top3": true,
+      "answer_ok": true,
+      "unsupported_claim": false,
+      "abstain": false,
+      "retrieval_latency_ms": 15.32,
+      "llm_latency_ms": 0.02,
+      "estimated_cost_usd": 8.7e-05
+    },
+    {
+      "question": "What is the subscription grace period after payment failure?",
+      "company_id": "acme-corp",
+      "expected_document_id": "acme-payment-failures-v1",
+      "retrieved_top3": [
+        "acme-account-access-v2",
+        "acme-returns-v1",
+        "acme-delivery-delays-v1"
+      ],
+      "precision_at_3": 0.0,
+      "recall_at_3": 0.0,
+      "mrr": 0.0,
+      "hit_top3": false,
+      "answer_ok": false,
+      "unsupported_claim": false,
+      "abstain": false,
+      "retrieval_latency_ms": 15.25,
+      "llm_latency_ms": 0.03,
+      "estimated_cost_usd": 8.7e-05
+    },
+    {
+      "question": "What happens if I file a chargeback?",
+      "company_id": "acme-corp",
+      "expected_document_id": "acme-payment-failures-v1",
+      "retrieved_top3": [
+        "acme-payment-failures-v1",
+        "acme-complaints-v1",
+        "acme-refunds-v2"
+      ],
+      "precision_at_3": 0.3333333333333333,
+      "recall_at_3": 1.0,
+      "mrr": 1.0,
+      "hit_top3": true,
+      "answer_ok": true,
+      "unsupported_claim": false,
+      "abstain": false,
+      "retrieval_latency_ms": 15.19,
+      "llm_latency_ms": 0.02,
+      "estimated_cost_usd": 8.7e-05
+    },
+    {
+      "question": "Can I cancel an order that already shipped?",
+      "company_id": "acme-corp",
+      "expected_document_id": "acme-cancellations-v1",
+      "retrieved_top3": [
+        "acme-cancellations-v1",
+        "acme-delivery-delays-v1"
+      ],
+      "precision_at_3": 0.3333333333333333,
+      "recall_at_3": 1.0,
+      "mrr": 1.0,
+      "hit_top3": true,
+      "answer_ok": true,
+      "unsupported_claim": false,
+      "abstain": false,
+      "retrieval_latency_ms": 15.34,
+      "llm_latency_ms": 0.02,
+      "estimated_cost_usd": 8.7e-05
+    },
+    {
+      "question": "Is there a refund for partial months on monthly subscriptions?",
+      "company_id": "acme-corp",
+      "expected_document_id": "acme-cancellations-v1",
+      "retrieved_top3": [
+        "acme-cancellations-v1",
+        "acme-damaged-goods-v1",
+        "acme-refunds-v2"
+      ],
+      "precision_at_3": 0.3333333333333333,
+      "recall_at_3": 1.0,
+      "mrr": 1.0,
+      "hit_top3": true,
+      "answer_ok": true,
+      "unsupported_claim": false,
+      "abstain": false,
+      "retrieval_latency_ms": 15.45,
+      "llm_latency_ms": 0.02,
+      "estimated_cost_usd": 8.7e-05
+    },
+    {
+      "question": "What is the annual plan cancellation refund window?",
+      "company_id": "acme-corp",
+      "expected_document_id": "acme-cancellations-v1",
+      "retrieved_top3": [
+        "acme-refunds-v2",
+        "acme-delivery-delays-v1",
+        "acme-returns-v1"
+      ],
+      "precision_at_3": 0.0,
+      "recall_at_3": 0.0,
+      "mrr": 0.0,
+      "hit_top3": false,
+      "answer_ok": false,
+      "unsupported_claim": false,
+      "abstain": false,
+      "retrieval_latency_ms": 14.99,
+      "llm_latency_ms": 0.02,
+      "estimated_cost_usd": 8.7e-05
+    },
+    {
+      "question": "What is the warranty on electronics?",
+      "company_id": "acme-corp",
+      "expected_document_id": "acme-warranty-v1",
+      "retrieved_top3": [
+        "acme-warranty-v1",
+        "acme-refunds-v2",
+        "acme-delivery-delays-v1"
+      ],
+      "precision_at_3": 0.3333333333333333,
+      "recall_at_3": 1.0,
+      "mrr": 1.0,
+      "hit_top3": true,
+      "answer_ok": true,
+      "unsupported_claim": false,
+      "abstain": false,
+      "retrieval_latency_ms": 15.08,
+      "llm_latency_ms": 0.02,
+      "estimated_cost_usd": 8.7e-05
+    },
+    {
+      "question": "What is the deductible for Acme Care accidental damage?",
+      "company_id": "acme-corp",
+      "expected_document_id": "acme-warranty-v1",
+      "retrieved_top3": [
+        "acme-returns-v1",
+        "acme-damaged-goods-v1",
+        "acme-warranty-v1"
+      ],
+      "precision_at_3": 0.3333333333333333,
+      "recall_at_3": 1.0,
+      "mrr": 0.3333333333333333,
+      "hit_top3": true,
+      "answer_ok": true,
+      "unsupported_claim": false,
+      "abstain": false,
+      "retrieval_latency_ms": 15.13,
+      "llm_latency_ms": 0.03,
+      "estimated_cost_usd": 8.7e-05
+    },
+    {
+      "question": "When does the lemon policy apply?",
+      "company_id": "acme-corp",
+      "expected_document_id": "acme-warranty-v1",
+      "retrieved_top3": [
+        "acme-delivery-delays-v1",
+        "acme-missing-orders-v1",
+        "acme-refunds-v2"
+      ],
+      "precision_at_3": 0.0,
+      "recall_at_3": 0.0,
+      "mrr": 0.0,
+      "hit_top3": false,
+      "answer_ok": false,
+      "unsupported_claim": false,
+      "abstain": false,
+      "retrieval_latency_ms": 16.46,
+      "llm_latency_ms": 0.03,
+      "estimated_cost_usd": 8.7e-05
+    },
+    {
+      "question": "How fast do I get a complaint case ID?",
+      "company_id": "acme-corp",
+      "expected_document_id": "acme-complaints-v1",
+      "retrieved_top3": [
+        "acme-complaints-v1",
+        "acme-refunds-v2",
+        "acme-payment-failures-v1"
+      ],
+      "precision_at_3": 0.3333333333333333,
+      "recall_at_3": 1.0,
+      "mrr": 1.0,
+      "hit_top3": true,
+      "answer_ok": true,
+      "unsupported_claim": false,
+      "abstain": false,
+      "retrieval_latency_ms": 15.52,
+      "llm_latency_ms": 0.02,
+      "estimated_cost_usd": 8.7e-05
+    },
+    {
+      "question": "What is the escalation path for unresolved complaints?",
+      "company_id": "acme-corp",
+      "expected_document_id": "acme-complaints-v1",
+      "retrieved_top3": [
+        "acme-delivery-delays-v1",
+        "acme-returns-v1",
+        "acme-complaints-v1"
+      ],
+      "precision_at_3": 0.3333333333333333,
+      "recall_at_3": 1.0,
+      "mrr": 0.3333333333333333,
+      "hit_top3": true,
+      "answer_ok": false,
+      "unsupported_claim": false,
+      "abstain": false,
+      "retrieval_latency_ms": 14.94,
+      "llm_latency_ms": 0.02,
+      "estimated_cost_usd": 8.7e-05
+    },
+    {
+      "question": "Do Globex refunds go to the original card?",
+      "company_id": "globex-inc",
+      "expected_document_id": "globex-refunds-v1",
+      "retrieved_top3": [
+        "globex-refunds-v1"
+      ],
+      "precision_at_3": 0.3333333333333333,
+      "recall_at_3": 1.0,
+      "mrr": 1.0,
+      "hit_top3": true,
+      "answer_ok": true,
+      "unsupported_claim": false,
+      "abstain": false,
+      "retrieval_latency_ms": 0.28,
+      "llm_latency_ms": 0.01,
+      "estimated_cost_usd": 8.7e-05
+    },
+    {
+      "question": "What is Acme's policy on Mars colony shipping?",
+      "company_id": "acme-corp",
+      "expected_document_id": "",
+      "retrieved_top3": [
+        "acme-refunds-v2",
+        "acme-returns-v1",
+        "acme-delivery-delays-v1"
+      ],
+      "precision_at_3": 0.0,
+      "recall_at_3": 0.0,
+      "mrr": 0.0,
+      "hit_top3": false,
+      "answer_ok": true,
+      "unsupported_claim": false,
+      "abstain": true,
+      "retrieval_latency_ms": 15.05,
+      "llm_latency_ms": 0.01,
+      "estimated_cost_usd": 5.5e-05
+    }
+  ]
+}

@@ -20,6 +20,8 @@ class Settings(BaseSettings):
         default=0.6,
         alias="LLM_CONFIDENCE_THRESHOLD",
     )
+    database_url: str | None = Field(default=None, alias="DATABASE_URL")
+    rag_min_similarity: float = Field(default=0.18, alias="RAG_MIN_SIMILARITY")
 
 
 @lru_cache

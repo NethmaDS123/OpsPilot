@@ -92,9 +92,22 @@ python -m app.compare_three_classifiers --live-llm   # optional; uses OpenAI
 
 Model metrics and methodology: [`docs/evaluation.md`](docs/evaluation.md).
 
+## Knowledge base (Week 4)
+
+Policy RAG with pgvector: ingest markdown policies, semantic search, and grounded answers.
+
+```bash
+docker compose up -d
+export DATABASE_URL=postgresql+psycopg://opspilot:opspilot@localhost:5432/opspilot
+python -m app.ingest_policies --include-superseded
+python -m app.run_rag_evaluation
+```
+
+Endpoints: `POST /support/search`, `POST /support/answer`. Details: [`docs/knowledge-base.md`](docs/knowledge-base.md).
+
 ## Tech stack
 
-Python 3.13, FastAPI, Pydantic v2, scikit-learn, OpenAI Python SDK, pytest.
+Python 3.13, FastAPI, Pydantic v2, scikit-learn, OpenAI Python SDK, pgvector, pytest.
 
 ## License
 
